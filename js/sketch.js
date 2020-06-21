@@ -15,6 +15,8 @@ let stepStatus;
 let start;
 let target;
 
+let pauseStep = true;
+
 function setup() {
   createCanvas(windowHeight, windowHeight);
 
@@ -58,8 +60,13 @@ function draw() {
   if (stepStatus !== STEP_CONTINUE) {
     return;
   }
+  if (mouseIsPressed) {
+    pauseStep = !pauseStep;
+  }
 
-  stepStatus = pathFinder.step();
+  if (!pauseStep) {
+    stepStatus = pathFinder.step();
+  }
 
   background(238);
   drapMap();
