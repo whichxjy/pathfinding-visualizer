@@ -1,11 +1,16 @@
 const rowNum = 40;
-const colNum = 40;
+const colNum = 30;
 
 let gameMap;
+let pathFinder;
 
 function setup() {
-  createCanvas(500, 500);
-  gameMap = new GameMap(rowNum, colNum, 10, 10, width, height);
+  createCanvas(700, 550);
+  gameMap = new GameMap(rowNum, colNum, 0, 0, 500, 500);
+
+  const start = gameMap.maze[0][0];
+  const target = gameMap.maze[rowNum - 5][colNum - 5];
+  pathFinder = new PathFinder(gameMap, start, target);
 }
 
 function drapMap() {

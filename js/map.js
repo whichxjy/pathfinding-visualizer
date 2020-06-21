@@ -22,7 +22,7 @@ function GameMap(rowNum, colNum, x, y, width, height) {
       const isWall = random(1.0) < wallRatio;
       this.maze[row][col] = new Cell(
         row, col, this.x + row * this.cellWidth, this.y + col * this.cellHeight,
-        this.cellWidth, this.cellHeight, isWall
+        this.cellWidth, this.cellHeight, isWall, this.maze
       );
     }
   }
