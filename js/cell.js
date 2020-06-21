@@ -1,3 +1,5 @@
+const INF = 99999999;
+
 function Cell(row, col, x, y, width, height, isWall, maze) {
   this.row = row;
   this.col = col;
@@ -9,9 +11,9 @@ function Cell(row, col, x, y, width, height, isWall, maze) {
   this.maze = maze;
 
   // f = g + h
-  this.f = 0;
-  this.g = 0;
-  this.h = 0;
+  this.f = INF;
+  this.g = INF;
+  this.h = INF;
 
   // previous cell in the path
   this.prev = null;
@@ -36,17 +38,9 @@ function Cell(row, col, x, y, width, height, isWall, maze) {
   };
 
   // display current cell
-  this.show = () => {
-    if (this.isWall) {
-      const c = color(0, 0, 0);
-      fill(c);
-      noStroke();
-      rect(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, this.height / 2);
-    } else {
-      const c = color(0, 0, 140);
-      fill(c);
-      noStroke();
-      rect(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, this.height / 2);
-    }
+  this.show = (c) => {
+    fill(c);
+    noStroke();
+    rect(this.x, this.y, 0.8 * this.width, 0.8 * this.height);
   };
 }

@@ -18,7 +18,7 @@ function GameMap(rowNum, colNum, x, y, width, height) {
 
   for (let row = 0; row < rowNum; row++) {
     for (let col = 0; col < colNum; col++) {
-      const wallRatio = 0.4;
+      const wallRatio = 0.3;
       const isWall = random(1.0) < wallRatio;
       this.maze[row][col] = new Cell(
         row, col, this.x + row * this.cellWidth, this.y + col * this.cellHeight,

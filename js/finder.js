@@ -4,8 +4,13 @@ const SETP_NOT_FOUND = 3;
 
 function PathFinder(gameMap, start, target) {
   this.gameMap = gameMap;
+
   this.start = start;
+  this.start.g = 0;
+  this.start.isWall = false;
+
   this.target = target;
+  this.target.isWall = false;
 
   this.openSet = [start];
   this.closeSet = [];
@@ -23,7 +28,7 @@ function PathFinder(gameMap, start, target) {
     let winner = 0;
     for (let i = 1; i < this.openSet.length; i++) {
       if (this.openSet[i].f < this.openSet[winner].f
-        || (this.openSet[i].f == this.openSet[winner].f && this.openSet[i].g > this.openSet[winner].g)) {
+        || (this.openSet[i].f === this.openSet[winner].f && this.openSet[i].g > this.openSet[winner].g)) {
         winner = i;
       }
     }
@@ -39,14 +44,16 @@ function PathFinder(gameMap, start, target) {
     this.removeElement(this.openSet, curr);
     this.closeSet.push(curr);
 
-    curr.neighbors.forEach((neighbor) => {
-      if (closeSet.includes(neighbor)) {
+    curr.getNeighbors().forEach((neighbor) => {
+      if (this.closeSet.includes(neighbor)) {
         return;
       }
 
       const currNeighborG = curr.g + 1;
 
-      if (currNeighborG >= neighbor.g) {
+      if (!this.openSet.includes(neighbor)) {
+        this.openSet.push(neighbor);
+      } else if (currNeighborG >= neighbor.g) {
         return;
       }
 
