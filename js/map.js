@@ -1,4 +1,4 @@
-function SearchMap(rowNum, colNum, x, y, width, height) {
+function GameMap(rowNum, colNum, x, y, width, height) {
   this.rowNum = rowNum;
   this.colNum = colNum;
   this.x = x;
@@ -21,8 +21,8 @@ function SearchMap(rowNum, colNum, x, y, width, height) {
       const wallRatio = 0.4;
       const isWall = random(1.0) < wallRatio;
       this.maze[row][col] = new Cell(
-        row, col, this.x + row * this.cellWidth,
-        this.y + col * this.cellHeight, isWall
+        row, col, this.x + row * this.cellWidth, this.y + col * this.cellHeight,
+        this.cellWidth, this.cellHeight, isWall
       );
     }
   }
