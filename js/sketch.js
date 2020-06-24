@@ -15,7 +15,7 @@ let stepStatus;
 let start;
 let target;
 
-let pauseStep = true;
+let pauseStep = false;
 
 function setup() {
   createCanvas(windowHeight, windowHeight);
