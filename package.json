@@ -1,7 +1,7 @@
 {
-  "name": "algo-visualizer",
+  "name": "pathfinding-visualizer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pathfinding Algorithms Visualizer",
   "main": "sketch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
