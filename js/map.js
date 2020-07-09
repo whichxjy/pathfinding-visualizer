@@ -22,7 +22,7 @@ function GameMap(rowNum, colNum, x, y, width, height) {
 
       this.maze[row][col] = new Cell(
         row, col,
-        this.x + row * this.cellSize, this.y + col * this.cellSize,
+        this.x + col * this.cellSize, this.y + row * this.cellSize,
         this.cellSize, isWall, this.maze
       );
     }

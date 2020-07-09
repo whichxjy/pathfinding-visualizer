@@ -1,5 +1,5 @@
 const rowNum = 40;
-const colNum = 40;
+const colNum = 60;
 
 let gameMap;
 let pathFinder;
