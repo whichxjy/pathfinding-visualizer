@@ -5,6 +5,7 @@ let gameMap;
 let pathFinder;
 
 let wallColor;
+let groundColor;
 let openColor;
 let closeColor;
 let startColor;
@@ -20,11 +21,12 @@ let pauseStep = false;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  gameMap = new GameMap(rowNum, colNum, 0, 0, 0.8 * windowWidth, 0.8 * windowHeight);
+  gameMap = new GameMap(rowNum, colNum, 0, 0, windowWidth, windowHeight);
 
   wallColor = color(0, 0, 51);
+  groundColor = color(210, 210, 210);
   openColor = color(153, 204, 255);
-  closeColor = color(200, 0, 0);
+  closeColor = color(204, 153, 153);
   startColor = color(255, 153, 51);
   targetColor = color(255, 153, 51);
 
@@ -40,6 +42,8 @@ function drapMap() {
     for (let col = 0; col < colNum; col++) {
       if (gameMap.maze[row][col].isWall) {
         gameMap.maze[row][col].show(wallColor);
+      } else {
+        gameMap.maze[row][col].show(groundColor);
       }
     }
   }
@@ -69,6 +73,6 @@ function draw() {
     stepStatus = pathFinder.step();
   }
 
-  background(238);
+  background(255);
   drapMap();
 }
