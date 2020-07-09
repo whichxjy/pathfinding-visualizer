@@ -12,6 +12,8 @@ function PathFinder(gameMap, start, target) {
   this.target = target;
   this.target.isWall = false;
 
+  this.lastVisitedCell = start;
+
   this.openSet = [start];
   this.closeSet = [];
 
@@ -33,6 +35,8 @@ function PathFinder(gameMap, start, target) {
       }
     }
     const curr = this.openSet[winner];
+
+    this.lastVisitedCell = curr;
 
     // check if the target is found
     if (curr == this.target) {

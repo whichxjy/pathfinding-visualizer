@@ -10,6 +10,7 @@ let openColor;
 let closeColor;
 let startColor;
 let targetColor;
+let pathColor;
 
 let stepStatus;
 
@@ -24,11 +25,12 @@ function setup() {
   gameMap = new GameMap(rowNum, colNum, 0, 0, windowWidth, windowHeight);
 
   wallColor = color(0, 0, 51);
-  groundColor = color(210, 210, 210);
+  groundColor = color(230, 230, 230);
   openColor = color(153, 204, 255);
   closeColor = color(204, 153, 153);
   startColor = color(255, 153, 51);
   targetColor = color(255, 153, 51);
+  pathColor = color(255, 204, 51);
 
   stepStatus = STEP_CONTINUE;
 
@@ -56,6 +58,11 @@ function drapMap() {
     pathFinder.closeSet[i].show(closeColor);
   }
 
+  const path = getPath(pathFinder.lastVisitedCell);
+  for (let i = 0; i < path.length; i++) {
+    path[i].show(pathColor);
+  }
+
   start.show(startColor);
   target.show(targetColor);
 }
@@ -75,4 +82,16 @@ function draw() {
 
   background(255);
   drapMap();
+}
+
+function getPath(lastCell) {
+  const path = [lastCell];
+  let curr = lastCell;
+
+  while (curr.prev !== null) {
+    path.push(curr.prev);
+    curr = curr.prev;
+  }
+
+  return path;
 }
