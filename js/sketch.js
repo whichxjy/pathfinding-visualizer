@@ -18,9 +18,9 @@ let target;
 let pauseStep = false;
 
 function setup() {
-  createCanvas(windowHeight, windowHeight);
+  createCanvas(windowWidth, windowHeight);
 
-  gameMap = new GameMap(rowNum, colNum, 10, 10, 0.8 * windowHeight, 0.8 * windowHeight);
+  gameMap = new GameMap(rowNum, colNum, 0, 0, 0.8 * windowWidth, 0.8 * windowHeight);
 
   wallColor = color(0, 0, 51);
   openColor = color(153, 204, 255);
@@ -60,6 +60,7 @@ function draw() {
   if (stepStatus !== STEP_CONTINUE) {
     return;
   }
+
   if (mouseIsPressed) {
     pauseStep = !pauseStep;
   }

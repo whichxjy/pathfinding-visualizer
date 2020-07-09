@@ -1,12 +1,11 @@
 const INF = 99999999;
 
-function Cell(row, col, x, y, width, height, isWall, maze) {
+function Cell(row, col, x, y, size, isWall, maze) {
   this.row = row;
   this.col = col;
   this.x = x;
   this.y = y;
-  this.width = width;
-  this.height = height;
+  this.size = size;
   this.isWall = isWall;
   this.maze = maze;
 
@@ -41,6 +40,6 @@ function Cell(row, col, x, y, width, height, isWall, maze) {
   this.show = (c) => {
     fill(c);
     noStroke();
-    rect(this.x, this.y, 0.8 * this.width, 0.8 * this.height);
+    rect(this.x, this.y, 0.8 * this.size, 0.8 * this.size);
   };
 }

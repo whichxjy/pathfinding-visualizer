@@ -6,8 +6,7 @@ function GameMap(rowNum, colNum, x, y, width, height) {
   this.width = width;
   this.height = height;
 
-  this.cellWidth = this.width / colNum;
-  this.cellHeight = this.height / rowNum;
+  this.cellSize = Math.min(this.width / colNum, this.height / rowNum);
 
   // 2D maze
   this.maze = new Array(rowNum);
@@ -20,9 +19,11 @@ function GameMap(rowNum, colNum, x, y, width, height) {
     for (let col = 0; col < colNum; col++) {
       const wallRatio = 0.3;
       const isWall = random(1.0) < wallRatio;
+
       this.maze[row][col] = new Cell(
-        row, col, this.x + row * this.cellWidth, this.y + col * this.cellHeight,
-        this.cellWidth, this.cellHeight, isWall, this.maze
+        row, col,
+        this.x + row * this.cellSize, this.y + col * this.cellSize,
+        this.cellSize, isWall, this.maze
       );
     }
   }
