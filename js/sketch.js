@@ -1,5 +1,5 @@
-const rowNum = 40;
-const colNum = 60;
+const rowNum = 50;
+const colNum = 50;
 
 let gameMap;
 let pathFinder;
@@ -22,8 +22,6 @@ let pauseStep = false;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  gameMap = new GameMap(rowNum, colNum, 0, 0, windowWidth, windowHeight);
-
   wallColor = color(0, 0, 51);
   groundColor = color(230, 230, 230);
   openColor = color(153, 204, 255);
@@ -32,11 +30,23 @@ function setup() {
   targetColor = color(255, 153, 51);
   pathColor = color(255, 204, 51);
 
+  init(FINDER_ASTAR);
+}
+
+function init(finderCode) {
   stepStatus = STEP_CONTINUE;
+  gameMap = new GameMap(rowNum, colNum, 0, 0, windowWidth, windowHeight);
 
   start = gameMap.maze[0][0];
   target = gameMap.maze[rowNum - 1][colNum - 1];
-  pathFinder = new DFSPathFinder(gameMap, start, target);
+
+  if (finderCode == FINDER_ASTAR) {
+    pathFinder = new AStarPathFinder(gameMap, start, target);
+  } else if (finderCode == FINDER_BFS) {
+    pathFinder = new BFSPathFinder(gameMap, start, target);
+  } else if (finderCode == FINDER_DFS) {
+    pathFinder = new DFSPathFinder(gameMap, start, target);
+  }
 }
 
 function drapMap() {
@@ -94,4 +104,16 @@ function getPath(lastCell) {
   }
 
   return path;
+}
+
+function keyPressed() {
+  if (keyCode === 81) {
+    pauseStep = !pauseStep;
+  } else if (keyCode === 49) {
+    init(FINDER_ASTAR);
+  } else if (keyCode === 50) {
+    init(FINDER_BFS);
+  } else if (keyCode === 51) {
+    init(FINDER_DFS);
+  }
 }
