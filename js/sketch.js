@@ -36,7 +36,7 @@ function setup() {
 
   start = gameMap.maze[0][0];
   target = gameMap.maze[rowNum - 1][colNum - 1];
-  pathFinder = new PathFinder(gameMap, start, target);
+  pathFinder = new AStarPathFinder(gameMap, start, target);
 }
 
 function drapMap() {

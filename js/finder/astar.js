@@ -2,7 +2,7 @@ const STEP_CONTINUE = 1;
 const STEP_FOUND = 2;
 const SETP_NOT_FOUND = 3;
 
-function PathFinder(gameMap, start, target) {
+function AStarPathFinder(gameMap, start, target) {
   this.gameMap = gameMap;
 
   this.start = start;
