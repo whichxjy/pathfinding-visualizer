@@ -27,7 +27,7 @@ function Cell(row, col, x, y, size, isWall, maze) {
   this.getNeighbors = () => {
     const neighbors = [];
 
-    [[row - 1, col], [row + 1, col], [row, col - 1], [row, col + 1]].forEach(([nRow, nCol]) => {
+    shuffle([[row - 1, col], [row + 1, col], [row, col - 1], [row, col + 1]]).forEach(([nRow, nCol]) => {
       if (this.isValid(nRow, nCol) && !this.maze[nRow][nCol].isWall) {
         neighbors.push(this.maze[nRow][nCol]);
       }

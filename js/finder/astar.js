@@ -35,7 +35,7 @@ function AStarPathFinder(gameMap, start, target) {
     this.lastVisitedCell = curr;
 
     // check if the target is found
-    if (curr == this.target) {
+    if (curr === this.target) {
       console.log("Found");
       return STEP_FOUND;
     }

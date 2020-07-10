@@ -20,11 +20,10 @@ function GameMap(rowNum, colNum, x, y, width, height) {
       const wallRatio = 0.3;
       const isWall = random(1.0) < wallRatio;
 
-      this.maze[row][col] = new Cell(
-        row, col,
-        this.x + col * this.cellSize, this.y + row * this.cellSize,
-        this.cellSize, isWall, this.maze
-      );
+      const cellX = this.x + col * this.cellSize;
+      const cellY = this.y + row * this.cellSize;
+
+      this.maze[row][col] = new Cell(row, col, cellX, cellY, this.cellSize, isWall, this.maze);
     }
   }
 }
