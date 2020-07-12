@@ -1,5 +1,18 @@
+const leftBarWidth = 10;
+const topBarHeight = 50;
+
+const elementHeight = topBarHeight * 0.6;
+
+let pauseButton;
+let restartButton;
+let finderSelector;
+
+let finderCode;
+
 const rowNum = 50;
-const colNum = 50;
+const colNum = 80;
+
+let pauseStep = false;
 
 let gameMap;
 let pathFinder;
@@ -17,10 +30,53 @@ let stepStatus;
 let start;
 let target;
 
-let pauseStep = false;
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  finderCode = FINDER_ASTAR;
+
+  textAlign(CENTER);
+
+  pauseButton = createButton("暂停");
+  pauseButton.position(10, 10);
+  pauseButton.size(AUTO, elementHeight);
+  pauseButton.mousePressed(() => {
+    if (pauseStep) {
+      pauseStep = false;
+      pauseButton.html("暂停");
+    } else {
+      pauseStep = true;
+      pauseButton.html("继续");
+    }
+  });
+
+  restartButton = createButton("重新开始");
+  restartButton.position(80, 10);
+  restartButton.size(AUTO, elementHeight);
+  restartButton.mousePressed(() => {
+    init();
+  });
+
+  finderSelector = createSelect();
+  finderSelector.position(180, 10);
+  finderSelector.size(50, elementHeight);
+  finderSelector.option("A*");
+  finderSelector.option("BFS");
+  finderSelector.option("DFS");
+  finderSelector.changed(() => {
+    let item = finderSelector.value();
+
+    if (item === "A*") {
+      finderCode = FINDER_ASTAR;
+      init();
+    } else if (item === "BFS") {
+      finderCode = FINDER_BFS;
+      init();
+    } else if (item === "DFS") {
+      finderCode = FINDER_DFS;
+      init();
+    }
+  });
 
   wallColor = color(0, 0, 51);
   groundColor = color(230, 230, 230);
@@ -33,18 +89,22 @@ function setup() {
   init(FINDER_ASTAR);
 }
 
-function init(finderCode) {
+function init() {
   stepStatus = STEP_CONTINUE;
-  gameMap = new GameMap(rowNum, colNum, 0, 0, windowWidth, windowHeight);
+  pauseStep = false;
+
+  const mapWidth = windowWidth - leftBarWidth;
+  const mapHeight = windowHeight - topBarHeight;
+  gameMap = new GameMap(rowNum, colNum, leftBarWidth, topBarHeight, mapWidth, mapHeight);
 
   start = gameMap.maze[0][0];
   target = gameMap.maze[rowNum - 1][colNum - 1];
 
-  if (finderCode == FINDER_ASTAR) {
+  if (finderCode === FINDER_ASTAR) {
     pathFinder = new AStarPathFinder(gameMap, start, target);
-  } else if (finderCode == FINDER_BFS) {
+  } else if (finderCode === FINDER_BFS) {
     pathFinder = new BFSPathFinder(gameMap, start, target);
-  } else if (finderCode == FINDER_DFS) {
+  } else if (finderCode === FINDER_DFS) {
     pathFinder = new DFSPathFinder(gameMap, start, target);
   }
 }
@@ -82,10 +142,6 @@ function draw() {
     return;
   }
 
-  if (mouseIsPressed) {
-    pauseStep = !pauseStep;
-  }
-
   if (!pauseStep) {
     stepStatus = pathFinder.step();
   }
@@ -104,16 +160,4 @@ function getPath(lastCell) {
   }
 
   return path;
-}
-
-function keyPressed() {
-  if (keyCode === 81) {
-    pauseStep = !pauseStep;
-  } else if (keyCode === 49) {
-    init(FINDER_ASTAR);
-  } else if (keyCode === 50) {
-    init(FINDER_BFS);
-  } else if (keyCode === 51) {
-    init(FINDER_DFS);
-  }
 }
